@@ -70,3 +70,4 @@ g["region_name"] = "PAT/Trentino" if level=="province" else "Trentino-Alto Adige
 # --- Salva
 g.to_parquet(OUT_PATH, index=False)
 print("Salvato:", OUT_PATH, "→", g["date"].min(), "→", g["date"].max(), "| n=", len(g))
+
