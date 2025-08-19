@@ -1,51 +1,72 @@
 import pandas as pd
 from pathlib import Path
+import re
 
-# === INPUT/OUTPUT ===
-IN_CSV = Path("data/external/google_mobility/2022_IT_Region_Mobility_Report.csv")  # <-- aggiorna se serve
+# --- INPUT: metti qui il file che hai effettivamente
+SRC = Path("data/external/google_mobility/2022_IT_Region_Mobility_Report.csv")
+# SRC = Path("data/external/google_mobility/Global_Mobility_Report.csv")
+
 OUT = Path("data/processed"); OUT.mkdir(parents=True, exist_ok=True)
+OUT_PATH = OUT/"gmr_day.parquet"
 
-# Quale regione vuoi estrarre (regex robusta ai diversi formati del nome)
-REGION_REGEX = r"Trentino[-\s]Alto\sAdige(?:.?S[uü]dtirol)?"
+# --- Parametri di matching
+REGION_REGEXES = [
+    r"Trentino[-\s]Alto\sAdige(?:\s*[-/]?\s*S[uü]dtirol)?",  # copre molte varianti
+]
+PROVINCE_REGEXES = [
+    r"^Trento$", r"Provincia.*Trento", r"Autonomous\s*Province\s*of\s*Trento"
+]
 
-# === LOAD ===
-g = pd.read_csv(IN_CSV, parse_dates=["date"])
+# --- Carica
+g = pd.read_csv(SRC, parse_dates=["date"])
+for c in ["sub_region_1","sub_region_2","country_region"]:
+    if c in g.columns:
+        g[c] = g[c].fillna("")
 
-# Colonne utili possono variare poco tra release; normalizziamo i test
-g["sub_region_1"] = g["sub_region_1"].fillna("")
-g["sub_region_2"] = g["sub_region_2"].fillna("")
+# --- Filtra Italia
+if "country_region" in g.columns:
+    g = g[g["country_region"] == "Italy"]
 
-# === FILTER: Italia + livello REGIONE (sub_region_2 vuoto) + regione desiderata ===
-flt = (
-    (g["country_region"] == "Italy")
-    & (g["sub_region_2"] == "")                      # livello REGIONALE (non provinciale)
-    & (g["sub_region_1"].str.contains(REGION_REGEX, case=False, regex=True))
-)
+# --- Tenta prima PROVINCIA (sub_region_2) se il file lo contiene
+has_prov = (g["sub_region_2"] != "").any() if "sub_region_2" in g.columns else False
+sel = pd.Series(False, index=g.index)
 
-# === KEEP & RENAME (stesso schema che usavi prima) ===
+if has_prov:
+    pat = re.compile("|".join(PROVINCE_REGEXES), flags=re.IGNORECASE)
+    sel = g["sub_region_2"].str.match(pat)
+    level = "province"
+# Se non c'è livello provincia nel file, usa il livello REGIONE (sub_region_1)
+if not sel.any():
+    patR = re.compile("|".join(REGION_REGEXES), flags=re.IGNORECASE)
+    sel = g["sub_region_1"].str.match(patR)
+    level = "region"
+
+g = g.loc[sel].copy()
+
+if g.empty:
+    raise ValueError(
+        "Nessuna riga GMR trovata per Trentino/Trento nel file sorgente.\n"
+        "Apri il CSV e verifica i valori esatti di sub_region_1/2; in caso, aggiorna le regex sopra."
+    )
+
+# --- Seleziona & rinomina colonne
 rename_map = {
     "transit_stations_percent_change_from_baseline": "gmr_transit",
     "workplaces_percent_change_from_baseline":       "gmr_work",
     "retail_and_recreation_percent_change_from_baseline": "gmr_retail",
     "parks_percent_change_from_baseline":            "gmr_parks",
-    # Se ti servono: "residential_percent_change_from_baseline": "gmr_residential",
-    #                "grocery_and_pharmacy_percent_change_from_baseline": "gmr_grocery",
 }
+cols = ["date"] + [c for c in rename_map if c in g.columns]
+g = g[cols].rename(columns=rename_map).sort_values("date").reset_index(drop=True)
 
-cols_presenti = ["date"] + [c for c in rename_map.keys() if c in g.columns]
-if len(cols_presenti) == 1:
-    raise ValueError("Le colonne GMR attese non sono presenti nel CSV delle regioni.")
+# --- Tipi numerici coerenti
+for c in ["gmr_transit","gmr_work","gmr_retail","gmr_parks"]:
+    if c in g.columns:
+        g[c] = pd.to_numeric(g[c], errors="coerce").astype("float64")
 
-g = (g.loc[flt, cols_presenti]
-       .rename(columns=rename_map)
-       .sort_values("date")
-       .reset_index(drop=True))
+g["geo_level"] = level
+g["region_name"] = "PAT/Trentino" if level=="province" else "Trentino-Alto Adige/Südtirol"
 
-# (Opzionale) annota che è livello regionale
-g["geo_level"] = "region"
-g["region_name"] = "Trentino-Alto Adige/Südtirol"
-
-# === SAVE ===
-out_path = OUT / "gmr_day.parquet"   # mantengo lo stesso nome per non rompere la pipeline a valle
-g.to_parquet(out_path, index=False)
-print("Salvato:", out_path, "→", g.shape)
+# --- Salva
+g.to_parquet(OUT_PATH, index=False)
+print("Salvato:", OUT_PATH, "→", g["date"].min(), "→", g["date"].max(), "| n=", len(g))

@@ -57,3 +57,4 @@ plt.title("Stations sized by mean hourly GTFS departures within 300m")
 plt.tight_layout()
 plt.savefig("figures/stations_gtfs_map.png", dpi=150)
 print("Saved figures to ./figures/")
+
