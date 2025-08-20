@@ -1,2 +1,0 @@
-﻿agency_id,agency_name,agency_url,agency_timezone,agency_phone,agency_lang,agency_fare_url
-12,Trentino trasporti S.p.A.,https://www.trentinotrasporti.it/,Europe/Rome,+39 0461 821000,it,https://www.trentinotrasporti.it/app-per-android-e-ios
