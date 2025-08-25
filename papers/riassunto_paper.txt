@@ -1,0 +1,50 @@
+📖 Articolo 1 – Borowska-Stefańska et al. (2021), Remote Sensing
+
+Titolo: Changes in Urban Mobility Related to the Public Bike System with Regard to Weather Conditions and Statutory Retail Restrictions
+
+Contenuto: Studio sul bike-sharing a Łódź (Polonia), basato su dati GPS dei viaggi (2017–2018). Confronta l’uso delle bici prima e dopo l’introduzione delle restrizioni al commercio domenicale e considera anche le condizioni meteo (temperatura, precipitazioni).
+
+Risultati:
+
+I ciclisti sono sensibili al meteo: pioggia e freddo riducono l’uso, ma in misura diversa nei feriali e nei weekend.
+
+Nei giorni di restrizioni al commercio, le bici venivano usate per tragitti più lunghi e meno rapidi.
+
+Perché ti serve: È centrale per la tua ricerca perché collega bike-sharing e meteo in un contesto urbano europeo. Ti mostra anche che oltre al meteo, fattori istituzionali/policy (es. regolazioni) incidono sui comportamenti di mobilità → puoi citarlo per rafforzare l’idea che la tua analisi guarda al meteo, ma dentro un quadro più ampio.
+
+
+📖 Articolo 2 – Pang, Zablotskaia & Zhang (2016), On Impact of Weather on Human Mobility in Cities (in WISE 2016 Proceedings)
+
+Titolo: On Impact of Weather on Human Mobility in Cities
+
+Contenuto: Paper di conferenza Springer (LNCS) che usa big data urbani (dati di mobilità da telefoni/sensori) per studiare come il meteo (pioggia, temperatura) influenza i flussi di spostamento nelle città. Adotta approcci di spatial-temporal data mining.
+
+Risultati:
+
+Conferma che condizioni meteo estreme riducono la mobilità complessiva.
+
+Identifica differenze spaziali (alcune aree sono più sensibili alla pioggia di altre).
+
+Perché ti serve: È un precedente metodologico forte: mostra come il meteo entra nei modelli di mobilità urbana con dati big-data oriented. È direttamente collegato ai tuoi GAM e alle tue serie temporali → lo puoi citare per dare legittimità metodologica al tuo approccio.
+
+
+
+📖 Articolo 3 – Ceremigna, Giarda & Villani (2004), APAT Report
+
+Titolo: La valutazione delle emissioni atmosferiche in relazione alle scelte di mobilità urbana degli abitanti
+
+Contenuto: Report tecnico APAT (oggi ISPRA) che presenta il modello PARVEA, usato per stimare le emissioni atmosferiche (NOx, CO₂, PM10 ecc.) legate a diversi scenari di mobilità urbana (cambio parco veicolare, potenziamento TPL, aumento occupazione veicoli). Studio applicato a 8 città italiane.
+
+Risultati:
+
+Mostra quanto le politiche di mobilità (più trasporto pubblico, rinnovo veicoli, ecc.) possano ridurre le emissioni urbane.
+
+Perché ti serve: Non parla di meteo, ma è importante per dare rilevanza ambientale e politica al tuo studio. Ti permette di dire che la mobilità urbana non incide solo sui flussi, ma anche su inquinamento e sostenibilità. È utile per introduzione/discussione, a sostegno della dimensione sociale e ambientale.
+
+📌 In sintesi (utilizzo nei capitoli)
+
+Articolo 1 (Remote Sensing) → da usare in Results/Literature per confrontare bike-sharing e meteo (il più simile al tuo caso).
+
+Articolo 2 (WISE 2016) → da usare in Methodology/Literature per rafforzare l’approccio CSS e i modelli meteo–mobilità.
+
+Articolo 3 (APAT) → da usare in Introduction/Discussion per sottolineare l’impatto ambientale e policy della mobilità urbana.
