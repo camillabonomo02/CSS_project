@@ -1,0 +1,39 @@
+1. mob_transit per Pioggia > 0mm
+
+Cosa mostra: Boxplot della mobilità legata al trasporto pubblico (mob_transit) nei giorni senza pioggia (0) vs. con pioggia >0mm (1).
+
+Interpretazione: La mediana della mobilità è più bassa nei giorni di pioggia. Si nota anche maggiore variabilità negativa (coda inferiore più estesa). Questo suggerisce che anche una pioggia leggera riduce la propensione all’uso del trasporto pubblico.
+
+Connessione (RQ1): Conferma la sensibilità del trasporto pubblico alle condizioni atmosferiche. Anche piccole precipitazioni hanno un effetto negativo misurabile.
+
+2. mob_transit per Pioggia ≥ 10mm
+
+Cosa mostra: Boxplot di mob_transit nei giorni con precipitazioni intense (≥10mm) rispetto ai giorni sotto tale soglia.
+
+Interpretazione: La mediana scende ulteriormente nei giorni di pioggia forte. La distribuzione è più compressa e spostata verso valori negativi. Ciò indica che la mobilità con i mezzi pubblici diminuisce in modo netto durante piogge abbondanti.
+
+Connessione (RQ1): Evidenzia un effetto soglia: le piogge leggere riducono l’uso, ma le piogge intense hanno un impatto ancora più forte e generalizzato.
+
+3. mob_work per Pioggia > 0mm
+
+Cosa mostra: Boxplot della mobilità legata ai luoghi di lavoro (mob_work), giorni senza pioggia vs. con pioggia >0mm.
+
+Interpretazione: Le mediane sono simili (~ -15% rispetto al baseline), ma la dispersione appare maggiore con pioggia (più valori estremi negativi). Questo suggerisce che le piogge leggere non modificano molto il livello medio, ma aumentano la variabilità: alcuni giorni/piogge incidono di più.
+
+Connessione (RQ1): L’effetto della pioggia sulla mobilità lavorativa è meno marcato rispetto al trasporto pubblico, forse perché i lavoratori devono comunque recarsi al lavoro, indipendentemente dal clima, ma con possibili riduzioni episodiche.
+
+4. mob_work per Pioggia ≥ 10mm
+
+Cosa mostra: Boxplot di mob_work per giorni con precipitazioni intense (≥10mm).
+
+Interpretazione: Qui la differenza è più chiara: la mediana nei giorni di pioggia forte è più bassa (spostata verso -20%). Inoltre, la variabilità estrema è minore, indicando che la riduzione è sistematica.
+
+Connessione (RQ1): Conferma che le piogge intense non solo riducono l’uso del trasporto pubblico, ma anche la mobilità lavorativa in generale. Probabilmente parte della popolazione evita gli spostamenti o ricorre allo smart working.
+
+📌 Sintesi comparata:
+
+Il trasporto pubblico (mob_transit) è più sensibile già a piogge leggere.
+
+La mobilità lavorativa (mob_work) risente soprattutto delle piogge forti.
+
+Questo pattern rafforza l’interpretazione CSS: le condizioni meteo influenzano diversamente le categorie di mobilità, con implicazioni per resilienza ed equità (chi non può permettersi alternative è più penalizzato).
