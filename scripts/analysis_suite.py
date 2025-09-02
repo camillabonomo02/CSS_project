@@ -245,7 +245,6 @@ def run_gam(processed_dir: Path, out_dir: Path) -> None:
                     var = "precipitation" if label == "precip_mm" else "temperature"
                     return f"{tgt} — GAM effect of {var}"
 
-                # Poi dentro il plotting:
                 style_axes(ax,
                         title=_gam_title(target, label),
                         xlabel=ax.get_xlabel(),
