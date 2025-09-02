@@ -192,22 +192,71 @@ def run_gam(processed_dir: Path, out_dir: Path) -> None:
 
             # Partial effects
             for label in [c for c in ['temp_max','precip_mm'] if c in cols and c in term_idx]:
-                grid = gam.generate_X_grid(term=term_idx[label], n=100)
+                grid = gam.generate_X_grid(term=term_idx[label], n=200)
                 feat_idx = list(cols).index(label)
-                x_vals = grid[:, feat_idx]
-                pdep = gam.partial_dependence(term=term_idx[label], X=grid)
-                confi = gam.partial_dependence(term=term_idx[label], X=grid, width=0.95)
 
-                fig, ax = plt.subplots(figsize=(5.5,4))
-                ax.plot(x_vals, pdep, label='Partial effect')
-                ax.plot(x_vals, confi[0], linestyle='--', label='95% CI')
-                ax.plot(x_vals, confi[1], linestyle='--')
+                # x e partial effect → 1D
+                x_vals = np.asarray(grid[:, feat_idx]).reshape(-1)
+                pdep   = np.asarray(gam.partial_dependence(term=term_idx[label], X=grid)).reshape(-1)
+
+                # CI: gestisci tuple/lista vs array (2,n) / (n,2) / colonne
+                confi = gam.partial_dependence(term=term_idx[label], X=grid, width=0.95)
+                if isinstance(confi, (list, tuple)) and len(confi) == 2:
+                    ci_lo = np.asarray(confi[0]).reshape(-1)
+                    ci_hi = np.asarray(confi[1]).reshape(-1)
+                else:
+                    ci_arr = np.asarray(confi)
+                    # ora è un array; normalizza alle forme comuni
+                    if ci_arr.ndim == 1:
+                        ci_lo = ci_hi = ci_arr.reshape(-1)
+                    elif ci_arr.shape[0] == 2:
+                        ci_lo, ci_hi = ci_arr[0].reshape(-1), ci_arr[1].reshape(-1)
+                    elif ci_arr.shape[-1] == 2:
+                        ci_lo, ci_hi = ci_arr[..., 0].reshape(-1), ci_arr[..., 1].reshape(-1)
+                    else:
+                        # fallback prudente
+                        ci_lo, ci_hi = ci_arr[0].reshape(-1), ci_arr[1].reshape(-1)
+
+                # allinea lunghezze e ordina per x
+                m = min(len(x_vals), len(pdep), len(ci_lo), len(ci_hi))
+                x_vals, pdep, ci_lo, ci_hi = x_vals[:m], pdep[:m], ci_lo[:m], ci_hi[:m]
+                order = np.argsort(x_vals)
+                xv, mu, lo, hi = x_vals[order], pdep[order], ci_lo[order], ci_hi[order]
+
+                fig, ax = plt.subplots(figsize=(6,4))
+                ax.fill_between(xv, lo, hi, color="0.7", alpha=0.3, label="95% CI")  # banda grigia
+                ax.plot(xv, mu, color="C0", linewidth=2, label="Partial effect")     # linea blu
+
+                # Etichette asse x (come concordato)
+                if label == "precip_mm":
+                    ax.set_xlabel("Daily precipitation (mm)")
+                    ax.set_xticks([0, 5, 10, 20])
+                    ax.set_xticklabels(["0 (no rain)", "5", "10", "20 (heavy)"])
+                else:
+                    ax.set_xlabel("Daily max temperature (°C)")
+                    ax.set_xticks([0, 5, 10, 15, 20, 30, 35])
+                    ax.set_xticklabels(["0", "5", "10", "15", "20", "30", "35+"])
+
+                ax.set_ylabel(f"{target} mobility (pp vs baseline)")
+                ax.set_ylim(-15, 15)
+
+                def _gam_title(target: str, label: str) -> str:
+                    tgt = "Transit mobility" if target == "mob_transit" else "Workplace mobility"
+                    var = "precipitation" if label == "precip_mm" else "temperature"
+                    return f"{tgt} — GAM effect of {var}"
+
+                # Poi dentro il plotting:
                 style_axes(ax,
-                           title=f'GAM partial effect — {target} ~ s({label})',
-                           xlabel=label, ylabel=target, legend=True)
+                        title=_gam_title(target, label),
+                        xlabel=ax.get_xlabel(),
+                        ylabel=ax.get_ylabel(),
+                        legend=True)
+
+
                 fig.tight_layout()
                 fig.savefig(out_dir / f'figures/gam_{target}_{label}_en.png')
                 plt.close(fig)
+
 
     info("GAM complete — summaries in reports/tables/, figures in reports/figures/")
 
