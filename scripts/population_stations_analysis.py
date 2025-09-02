@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D
 from pathlib import Path
 import matplotlib.patheffects as pe
 
@@ -58,16 +59,18 @@ circ.plot(ax=ax, column="served_class", cmap="YlGnBu", legend=False, edgecolor="
 # --- Legend patches
 served_handles = [mpatches.Patch(color=plt.cm.YlGnBu(i / (len(labels)-1)), label=label) for i, label in enumerate(labels)]
 infra_handles = [
-    mpatches.Patch(color="black", label="Bike stations"),
-    mpatches.Patch(color="red", label="Transit stops")
+    Line2D([0], [0], marker='o', color='w', label='Bike stations',
+           markerfacecolor='black', markersize=7),
+    Line2D([0], [0], marker='o', color='w', label='Bus stops',
+           markerfacecolor='red', markersize=5)
 ]
 legend_all = served_handles + infra_handles
 
 ax.legend(handles=legend_all, title="% Families Served & Infrastructure", loc="lower left", frameon=True)
 
 
-stations.plot(ax=ax, color="black", markersize=15, alpha=0.8, label="Bike stations")
-stops.plot(ax=ax, color="red", markersize=4, alpha=0.4, label="Transit stops")
+stations.plot(ax=ax, color="black", markersize=18, alpha=1, label="Bike stations")
+stops.plot(ax=ax, color="red", markersize=4, alpha=0.4, label="Bus stops")
 
 for idx, row in circ.iterrows():
     ax.annotate(row["nome"], xy=(row.geometry.centroid.x, row.geometry.centroid.y),
