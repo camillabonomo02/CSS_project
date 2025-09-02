@@ -1,0 +1,31 @@
+*General interpretation of the GAM plots*
+
+Each plot reports the estimated partial effect of a weather variable (precipitation or temperature) on mobility (transit or workplace), as obtained from Generalized Additive Models (GAMs).
+
+Blue line = estimated effect (smoothed relationship).
+Grey band = 95% confidence interval.
+
+This representation highlights potential nonlinear associations while controlling for day-of-week, weekends, and holidays.
+
+
+*Precipitation effects*
+The GAM curve for transit mobility vs. precipitation shows a clear negative effect: even light rain (5–10 mm/day) already reduces transit usage, with the strongest decline around 15–20 mm. Beyond 20 mm the curve oscillates, likely due to the very small number of extreme-rainfall days, so results in that range should be interpreted cautiously.
+
+For workplace mobility, the effect of precipitation is weaker but still negative and statistically significant. This suggests that while commuting to work is somewhat resilient, rainfall still leads to reduced workplace presence, possibly reflecting increased teleworking or absenteeism.
+
+Overall, these findings confirm that public transport use is much more sensitive to rainfall than workplace mobility, aligning with evidence that bad weather particularly discourages waiting for and transferring across transit modes.
+
+
+*Temperature effects*
+Both transit and workplace mobility exhibit an inverted U-shaped relationship with maximum daily temperature.
+
+- Mobility increases from very cold to mild conditions, peaking around ~20 °C.
+
+- Beyond that point, hotter days are associated with decreasing mobility, likely due to discomfort in travel conditions.
+
+This pattern is consistent with previous studies showing reduced outdoor and commuting activity in both extreme cold and extreme heat. The effect is visible in both mobility types, with transit slightly more responsive to temperature fluctuations.
+
+*Synthesis*
+Taken together, the GAM results highlight how weather–mobility relationships are strongly nonlinear. Rainfall sharply reduces mobility—especially transit—while temperature has an inverted U-shape, with optimal levels at mild conditions and declines at extremes.
+
+These patterns confirm the added value of flexible models such as GAMs and raise important policy questions on equity and urban resilience, since disadvantaged groups without alternatives to transit are more exposed to weather-related disruptions.
