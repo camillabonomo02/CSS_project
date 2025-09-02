@@ -41,10 +41,94 @@ Mostra quanto le politiche di mobilità (più trasporto pubblico, rinnovo veicol
 
 Perché ti serve: Non parla di meteo, ma è importante per dare rilevanza ambientale e politica al tuo studio. Ti permette di dire che la mobilità urbana non incide solo sui flussi, ma anche su inquinamento e sostenibilità. È utile per introduzione/discussione, a sostegno della dimensione sociale e ambientale.
 
-📌 In sintesi (utilizzo nei capitoli)
 
-Articolo 1 (Remote Sensing) → da usare in Results/Literature per confrontare bike-sharing e meteo (il più simile al tuo caso).
 
-Articolo 2 (WISE 2016) → da usare in Methodology/Literature per rafforzare l’approccio CSS e i modelli meteo–mobilità.
+📖 Data Analysis and Optimization for (Citi)Bike Sharing
 
-Articolo 3 (APAT) → da usare in Introduction/Discussion per sottolineare l’impatto ambientale e policy della mobilità urbana.
+Di cosa parla l’articolo
+
+Il lavoro affronta il problema della gestione operativa dei sistemi di bike sharing, con focus su CitiBike (New York).
+
+Si concentra in particolare sul rebalancing, ovvero sullo spostamento delle biciclette tra le stazioni per evitare squilibri (stazioni vuote o piene).
+
+Propone due approcci distinti:
+
+Rush-hour rebalancing: uso di biciclette con rimorchio per bilanciare stazioni vicine durante le ore di punta, tramite un modello di clustering e matching tra stazioni “produttrici” e “consumatrici”.
+
+Overnight rebalancing: uso di camion per trasferire carichi completi di biciclette durante la notte, con modelli di ottimizzazione che massimizzano la copertura delle stazioni con risorse limitate.
+
+Introduce anche una metodologia per stimare la “domanda latente” (true demand) distinguendo tra i flussi osservati e i flussi potenziali censurati (quando una stazione è vuota o piena).
+
+Perché può esserti utile
+
+Come caso esemplare di ottimizzazione gestionale: mostra come l’analisi dei dati e i modelli di integer programming possano supportare le decisioni operative quotidiane in un grande sistema reale.
+
+Per collegare la dimensione “ottimale”: non solo quante stazioni o bici servono (parte pianificatoria), ma anche come mantenerle efficienti e bilanciate nel tempo.
+
+Come supporto metodologico: il paper dimostra l’uso di strumenti tipici della computational social science (clustering, ottimizzazione combinatoria, data-driven decision making).
+
+Come confronto con il tuo caso (Trento): anche se il contesto è molto diverso, puoi usarlo per argomentare che problemi di sbilanciamento emergono sia in grandi metropoli che in città medie, cambiando solo la scala e le risorse disponibili.
+
+Cosa dire quando lo citi
+
+Puoi presentarlo come un contributo che evidenzia il passaggio dalla pianificazione statica alla gestione dinamica del sistema.
+
+Sottolinea che “ottimale” non riguarda solo il numero di stazioni/bici, ma anche la capacità del gestore di mantenerle in equilibrio per garantire accessibilità e affidabilità.
+
+Evidenzia che le tecniche sviluppate nel paper sono realmente applicate (CitiBike NYC le usa quotidianamente), quindi rappresentano un esempio concreto di trasferimento della ricerca nella pratica.
+
+
+ALTRO:
+📊 Tabella comparativa: Trento – Innsbruck – Sistemi maturi
+| **Parametro**                 | **Trento** (120k ab.)         | **Innsbruck** (131k ab.)      | **Sistemi maturi** (es. Parigi, Lione, Londra) | **Standard in letteratura**                    |
+| ----------------------------- | ----------------------------- | ----------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| **Numero stazioni**           | 39                            | 51                            | Parigi: >1.400 • Londra: >750                  | Medium: 100–500 • Large: 1000+                 |
+| **Dock totali**               | 504                           | 740                           | Parigi: \~50.000 • Londra: \~11.500            | 1.200–3.600 (per città 120k)                   |
+| **Dock per stazione (media)** | 13 (6–24)                     | \~15                          | 20–40 (fino a 60–80 in centro)                 | 20–40 (Lin & Yang 2011)                        |
+| **Dock per 1.000 abitanti**   | 4,2                           | 5,6                           | Parigi: \~10 • Londra: \~7 • Lione: \~9        | 10–30 (Shaheen 2010; OECD/ITF 2020)            |
+| **Stazioni per 100k ab.**     | 32,5                          | 38,9                          | Parigi: 117 • Londra: 85 • Lione: 100          | 50–100 (Fishman 2016)                          |
+| **Distanza media stazioni**   | 2,8 km                        | Copertura solo centro         | 300–500 m tipici                               | 300–500 m (García-Palomares 2012)              |
+| **Stockout (affidabilità)**   | rischio alto (<20 bici/1.000) | rischio alto (<20 bici/1.000) | controllato (≥20 bici/1.000)                   | Nair et al. 2013: soglia critica 20 bici/1.000 |
+
+
+📌 Riassunto degli spunti interessanti
+
+Trento e Innsbruck come “small systems”
+
+Entrambe le città rientrano nella categoria dei sistemi piccoli: poche decine di stazioni, capacità per stazione bassa (10–20 dock), copertura limitata al centro urbano.
+
+Trento è leggermente meno dotata di Innsbruck, ma entrambe sono molto lontane dagli standard internazionali.
+
+Dotazione per abitante insufficiente
+
+Trento: 4,2 dock/1.000 ab.
+
+Innsbruck: 5,6 dock/1.000 ab.
+
+Standard: 10–30 bici/1.000 ab. → entrambi sotto-dimensionati di almeno il 50–70%.
+
+Secondo Nair et al. (2013), sotto i 20 bici/1.000 ab. aumenta drasticamente il rischio di stockout (stazioni vuote o piene).
+
+Distribuzione territoriale
+
+Trento: stazioni solo in centro città, periferie escluse → copertura minima della popolazione.
+
+Innsbruck: rete più estesa e integrata con università e nodi TPL, ma anch’essa poco presente nelle periferie.
+
+Sistemi maturi (Parigi, Londra) invece coprono in modo capillare la città, con una stazione ogni 300–500 m.
+
+Benchmark utile ma non modello ideale
+
+Innsbruck è un buon benchmark perché è simile per dimensioni e contesto alpino/universitario.
+
+Tuttavia, non rappresenta un modello ottimale: anch’essa non raggiunge gli standard minimi.
+
+Rispetto a Parigi o Londra, la differenza è enorme (densità stazioni 3–4 volte superiore, dock/abitante 2–3 volte più alti).
+
+👉 Quindi nel tuo paper puoi dire:
+
+Trento è sotto-dimensionata, sia in termini assoluti che rispetto a città simili come Innsbruck.
+
+Entrambe le città hanno sistemi insufficienti per garantire accessibilità e affidabilità, secondo gli standard accademici.
+
+Per migliorare, Trento dovrebbe puntare ad almeno raddoppiare/triplicare dock e stazioni, portandosi verso i valori minimi internazionali (≥10 bici per 1.000 abitanti, stazioni ogni 300–500 m).
