@@ -1,4 +1,21 @@
 #!/usr/bin/env python3
+"""
+Analyzes the intermodality of bike sharing stations in Trento.
+
+Main steps:
+- Loads the processed station accessibility dataset
+- Plots histograms and boxplots of intermodality indices (number of public transport stops within 300m and 500m of each station)
+- Identifies the top and bottom 5 stations by intermodality for both 300m and 500m buffers
+- Saves summary tables of top and bottom stations
+- Compares intermodality distributions between 300m and 500m buffers with boxplots and histograms
+
+Main outputs:
+- reports/figures/hist_300m.png, hist_500m.png, box_300m.png, box_500m.png
+- reports/figures/box_comparison_300_500.png, hist_comparison_300_500.png
+- reports/tables/top5_stations_access_300.csv, bottom5_stations_access_300.csv
+- reports/tables/top5_stations_access_500.csv,
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path

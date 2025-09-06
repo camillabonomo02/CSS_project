@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Analysis suite (EN):
+Analysis suite:
 - Temporal EDA on Mobility + Weather (2022)
 - GAM estimation (Gaussian) with smoothers for weather
 - Intermodality maps & rankings (GTFS 2025)
@@ -13,7 +13,7 @@ Optional:
   python3 scripts/analysis_suite.py gam  --processed data/processed --out reports
   python3 scripts/analysis_suite.py maps --processed data/processed --out reports
 
-Deps: pandas, numpy, matplotlib, (pygam), geopandas, contextily (optional)
+Requirements: pandas, numpy, matplotlib, (pygam), geopandas, contextily (optional)
 """
 
 from __future__ import annotations
@@ -23,7 +23,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Optional deps (handled gracefully)
 try:
     from pygam import LinearGAM, s, f as pf
 except Exception:

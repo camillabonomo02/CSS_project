@@ -1,4 +1,21 @@
 #!/usr/bin/env python3
+"""
+Analyzes the coverage of intermodal bike sharing stations in Trento with respect to population distribution.
+
+Main steps:
+- Loads administrative boundaries and population data by circumscription
+- Loads bike sharing stations and public transport stops
+- Identifies intermodal stations (bike stations within 300m of a bus stop)
+- Calculates the share and number of families served in each circumscription
+- Classifies circumscriptions by coverage percentage
+- Generates a classified map and a sorted bar chart of coverage
+- Saves a summary table of coverage statistics
+
+Main outputs:
+- reports/figures/intermodal_classed_map.png
+- reports/figures/intermodal_served_barplot.png
+"""
+
 import geopandas as gpd
 import pandas as pd
 import numpy as np
