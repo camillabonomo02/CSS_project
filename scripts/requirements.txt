@@ -1,0 +1,10 @@
+pandas
+geopandas
+shapely
+matplotlib
+seaborn
+contextily
+scikit-learn
+statsmodels
+pyproj
+rtree
