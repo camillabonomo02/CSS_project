@@ -15,10 +15,10 @@ The project investigates **intermodal urban mobility in Trento**, focusing on th
 
 ### Bike-sharing and boundaries  
 - `data/interim/circoscrizioni.geojson` – Administrative boundaries of Trento’s circoscrizioni.  
-- `data/stazioni_trento.csv` – Locations and attributes of bike-sharing stations.  
+- `data/raw/stazioni_trento.csv` – Locations and attributes of bike-sharing stations.  
 
 ### Weather  
-- `data/trento_era5_daily_2020_2022.json` – Daily weather data (temperature and precipitation) for Trento, 2020–2022.  
+- `data/raw/trento_era5_daily_2020_2022.json` – Daily weather data (temperature and precipitation) for Trento, 2020–2022.  
 
 ### Public transport (GTFS)  
 The project also includes a full GTFS feed from **Trentino Trasporti S.p.A.**. Not all files were directly used in the scripts, but they are preserved here for completeness:  
