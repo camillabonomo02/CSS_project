@@ -41,7 +41,7 @@ The project also includes a full GTFS feed from **Trentino Trasporti S.p.A.**. N
 Run the scripts in the following order to reproduce the project:  
 
 ### 1. `clean_all.py`  
-- Cleans and prepares all raw datasets (bike-sharing, circoscrizioni, weather, GTFS).  
+- Cleans and prepares all raw datasets (bike-sharing,weather, GTFS).  
 - Standardizes formats (CRS, dates, column names).  
 - Outputs: processed versions under `data/processed/`.  
 
@@ -52,7 +52,8 @@ Run the scripts in the following order to reproduce the project:
 
 ### 3. `analysis_suite.py`  
 - Exploratory and descriptive analysis.  
-- Produces summary statistics and plots (maps, distributions, temporal graphs).  
+- Produces summary statistics and plots (maps, distributions, temporal graphs).
+- Makes GAM estimations (Gaussian) with smoothers for weather.
 - Outputs: `results/figures/` and `results/tables/`.  
 
 ### 4. `population_stations_analysis.py`  
