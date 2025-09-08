@@ -1,4 +1,4 @@
-# CSS Project – Intermodal Urban Mobility in Trento
+# Pedaling Through Divides: Spatial, Social, and Climatic Inequalities in Trento’s Bike-Sharing System
 
 ## Overview  
 This repository contains the code and datasets for the final project of the *Computational Social Science* course (a.y. 2024/2025).  
