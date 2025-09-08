@@ -95,6 +95,6 @@ Outputs (tables, figures, maps) will be saved in the results/ folder.
 ---
 
 ## Authors
-Camilla Bonomo, Sara Lamouchi, Silvia Bortoluzzi, Diego Conti, Paolo Fabbri
+Camilla Bonomo, Sara Lammouchi, Silvia Bortoluzzi, Diego Conti, Paolo Fabbri
 
 
